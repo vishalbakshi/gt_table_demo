@@ -1,0 +1,101 @@
+---
+title: "gt Table Demo"
+author: "Vishal Bakshi"
+date: "`r Sys.Date()`"
+output:
+  word_document:
+    toc: yes
+    toc_depth: '2'
+  pdf_document:
+    toc: yes
+  beamer_presentation: default
+  powerpoint_presentation: default
+  html_document:
+    toc: yes
+    toc_depth: 2
+    toc_float: yes
+always_allow_html: yes
+---
+
+```{r setup, include=FALSE}
+
+# data analysis imports
+library(tidyverse)
+library(magrittr)
+
+
+# formatting tables
+library(gt)
+
+# color palettes
+library(scales)
+
+# saving gtables as images
+library(webshot2)
+library(rmarkdown)
+```
+
+```{r echo = FALSE}
+data <- data.frame(
+  outcome_statement = c(
+    "This is a very long outcome statement which will require a wide column if it remains in one line",
+    "This is a second very long outcome statement which will require a wide column if it remains in one line",
+    "This is a third very long outcome statement which will require a wide column if it remains in one line"),
+  value_1 = c(1000,2000,3000),
+  value_2 = c(450000,300,5000),
+  value_3 = c(8500, 750, 25)
+)
+
+data %>%
+    gt() %>% 
+    tab_options(
+        column_labels.font.weight = "bold",
+        table.width = pct(100)
+    ) %>%
+    tab_style(
+        style = cell_borders(
+            sides = c("bottom", "right"),
+            color = "#bfbfbf"
+        ),
+        locations = cells_body(
+            columns = everything(),
+            rows = everything()
+        )
+    ) %>%
+    tab_header(
+        title = "Three Values for Different Outcomes"
+    ) %>%
+    data_color(
+        columns = c(
+            value_1, 
+            value_2,
+            value_3),
+        #colors = col_bin(colorRamp(c("#fff8eb", "#fdb734"), interpolate="spline"), domain = c(0,5005), bins = 6)
+        colors = col_factor(colorRamp(c("#fff8eb", "#fdb734"), interpolate="spline"), domain = NULL)
+    ) %>% 
+    tab_footnote(
+        footnote = "Description of Value 1",
+        locations = cells_column_labels(
+            columns = value_1
+        )
+    ) %>%
+    tab_footnote(
+        footnote = "Description of Value 2",
+        locations = cells_column_labels(
+            columns = value_2
+        )
+    ) %>%
+    tab_footnote(
+        footnote = "Description of Value 3",
+        locations = cells_column_labels(
+            columns = value_3
+        )
+    ) %>%
+    cols_label(
+        outcome_statement = "Outcome Statement",
+        value_1 = "Value 1",
+        value_2 = "Value 2",
+        value_3 = "Value 3"
+    )
+
+```
