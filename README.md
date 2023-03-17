@@ -16,7 +16,7 @@
 
 ### RStudio
 
-- The `gt` table exports correctly when "Knitting" to Word document
+- The `gt` table exports correctly when "Knitting" `.Rmd` to Word document
 - The `gt` table does not export correctly when Knitting to PDF (table gets cutoff since first column is too wide and colormap does not appear in columns)
 
 ### VSCode
