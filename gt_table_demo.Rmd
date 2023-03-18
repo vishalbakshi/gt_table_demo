@@ -3,11 +3,11 @@ title: "gt Table Demo"
 author: "Vishal Bakshi"
 date: "`r Sys.Date()`"
 output:
+  pdf_document:
+    toc: yes
   word_document:
     toc: yes
     toc_depth: '2'
-  pdf_document:
-    toc: yes
   beamer_presentation: default
   powerpoint_presentation: default
   html_document:
